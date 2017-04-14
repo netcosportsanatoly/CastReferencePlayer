@@ -593,8 +593,11 @@ sampleplayer.CastPlayer.prototype.preloadVideo_ = function(mediaInformation) {
   });
     
   if ('customData' in info.message.media) {
+    this.log_('Custom data is present');
     host.licenseUrl = info.message.media.customData['license_url'];
     host.licenseCustomData = info.message.media.customData['license_data'];
+  } else {
+    this.log_('No custom data');
   }
     
   host.onError = function() {
