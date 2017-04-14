@@ -591,15 +591,7 @@ sampleplayer.CastPlayer.prototype.preloadVideo_ = function(mediaInformation) {
     'url': url,
     'mediaElement': self.mediaElement_
   });
-    
-  if ('customData' in info.message.media) {
-    this.log_('Custom data is present');
-    host.licenseUrl = info.message.media.customData['license_url'];
-    host.licenseCustomData = info.message.media.customData['license_data'];
-  } else {
-    this.log_('No custom data');
-  }
-    
+
   host.onError = function() {
     self.preloadPlayer_.unload();
     self.preloadPlayer_ = null;
@@ -842,6 +834,11 @@ sampleplayer.CastPlayer.prototype.loadVideo_ = function(info) {
         'url': url,
         'mediaElement': this.mediaElement_
       });
+      if ('customData' in info.message.media) {
+        host.licenseUrl = info.message.media.customData['license_url'];
+        host.licenseCustomData = info.message.media.customData['license_data'];
+      }
+
       host.onError = loadErrorCallback;
       this.player_ = new cast.player.api.Player(host);
       this.player_.load(protocolFunc(host));
