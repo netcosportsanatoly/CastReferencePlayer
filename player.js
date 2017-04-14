@@ -591,6 +591,12 @@ sampleplayer.CastPlayer.prototype.preloadVideo_ = function(mediaInformation) {
     'url': url,
     'mediaElement': self.mediaElement_
   });
+    
+  if ('customData' in info.message.media) {
+    host.licenseUrl = info.message.media.customData['license_url'];
+    host.licenseCustomData = info.message.media.customData['license_data'];
+  }
+    
   host.onError = function() {
     self.preloadPlayer_.unload();
     self.preloadPlayer_ = null;
